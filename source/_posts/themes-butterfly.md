@@ -13,6 +13,7 @@ cover: 'https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png'
 abbrlink: 64f686f3
 date: 2024-06-26 09:20:36
 top_img:
+series: Butterfly
 ---
 
 [Butterfly主题官方文档](https://butterfly.js.org/)

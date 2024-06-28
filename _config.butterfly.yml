@@ -25,7 +25,7 @@ menu:
   分类: /categories/ || fas fa-folder-open
   清单||fa fa-heartbeat:
     音乐: /music/ || fas fa-music
-    照片: /Gallery/ || fas fa-images
+    照片: /gallery/ || fas fa-images
     电影: /movies/ || fas fa-video
   友链: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
@@ -56,7 +56,7 @@ favicon: /img/favicon.png
 
 # Avatar (頭像)
 avatar:
-  img: https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png
+  img: /img/avatar.jpeg
   effect: false # 头像会一直转圈
 
 # Disable all banner image
@@ -384,8 +384,10 @@ algolia_search:
     per_page: 6
 
 # Local search
+## 安装 https://github.com/next-theme/hexo-generator-searchdb   
+## 或安装 https://github.com/wzpan/hexo-generator-search
 local_search:
-  enable: false
+  enable: true
   # Preload the search data when the page loads.
   preload: false
   # Show top n results per article, show all results by setting to -1
@@ -423,26 +425,26 @@ addtoany:
 comments:
   # Up to two comments system, the first will be shown as default
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
-  use: # Valine,Disqus
+  use: waline,gitalk # Valine,Disqus
   text: true # Display the comment name next to the button
   # lazyload: The comment system will be load when comment element enters the browser's viewport.
   # If you set it to true, the comment count will be invalid
   lazyload: false
-  count: false # Display comment count in post's top_img
+  count: true # Display comment count in post's top_img
   card_post_count: false # Display comment count in Home Page
 
 # disqus
 # https://disqus.com/
 disqus:
-  shortname:
-  apikey: # For newest comments widget
+  shortname: anyisure
+  apikey: mLEYmqEwka0nkeNK5wWYLx82m3YVhXQoiNUj8cKJld8Hd2jLZQCtHVxyTYh6onVb # For newest comments widget
 
 # Alternative Disqus - Render comments with Disqus API
 # DisqusJS 評論系統，可以實現在網路審查地區載入 Disqus 評論列表，兼容原版
 # https://github.com/SukkaW/DisqusJS
 disqusjs:
-  shortname:
-  apikey:
+  shortname: anyisure
+  apikey: mLEYmqEwka0nkeNK5wWYLx82m3YVhXQoiNUj8cKJld8Hd2jLZQCtHVxyTYh6onVb # For newest comments widget
   option:
 
 # livere (來必力)
@@ -453,28 +455,33 @@ livere:
 # gitalk
 # https://github.com/gitalk/gitalk
 gitalk:
-  client_id:
-  client_secret:
-  repo:
-  owner:
-  admin:
+  client_id: Ov23li1vkKjLHpOllA40
+  client_secret: fcec48cd7ee00af665cb1004cabbede1e060605d
+  repo: anyisure.github.io
+  owner: anyisure
+  admin: anyisure
   option:
 
 # valine
 # https://valine.js.org
+# https://console.leancloud.app/ 查看评论
+# https://anyisure.avosapps.us/ 查看评论  先在leancloud上安装Valine-Admin 插件  https://github.com/DesertsP/Valine-Admin?tab=readme-ov-file
 valine:
-  appId: # leancloud application app id
-  appKey: # leancloud application app key
+  appId: HmgOSy7vqUngE5vZvi5oFRAW-MdYXbMMI # leancloud application app id
+  appKey: qPnXqKCQSFFocevj4K1sv0V4 # leancloud application app key
   avatar: monsterid # gravatar style https://valine.js.org/#/avatar
-  serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
+  serverURLs: https://hmgosy7v.api.lncldglobal.com # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
   bg: # valine background
   visitor: false
   option:
 
 # waline - A simple comment system with backend support fork from Valine
 # https://waline.js.org/
+# https://waline.js.org/guide/get-started/#leancloud-%E8%AE%BE%E7%BD%AE-%E6%95%B0%E6%8D%AE%E5%BA%93
+## 部署在vercel  https://vercel.com/anyisures-projects-9c7cca7c/hexo-waline
+# https://hexo-waline-chi.vercel.app/ui 查看评论
 waline:
-  serverURL: # Waline server address url
+  serverURL: hexo-waline-chi.vercel.app # Waline server address url
   bg: # waline background
   pageview: false
   option:
@@ -680,7 +687,7 @@ enter_transitions: true
 # Typewriter Effect (打字效果)
 # https://github.com/disjukr/activate-power-mode
 activate_power_mode:
-  enable: false
+  enable: true
   colorful: true # open particle animation (冒光特效)
   shake: true #  open shake (抖動特效)
   mobile: false
@@ -700,7 +707,7 @@ canvas_ribbon:
 
 # Fluttering Ribbon (動態彩帶)
 canvas_fluttering_ribbon:
-  enable: false
+  enable: true
   mobile: false
 
 # canvas_nest
@@ -741,7 +748,7 @@ display_mode: light
 
 # Beautify (美化頁面顯示)
 beautify:
-  enable: false
+  enable: true
   field: post # site/post
   title-prefix-icon: # '\f0c1'
   title-prefix-icon-color: # '#F47466'
@@ -756,9 +763,14 @@ font:
 
 # Font settings for the site title and site subtitle
 # 左上角網站名字 主頁居中網站名字
+# blog_title_font:
+#   font_link:
+#   font-family:
+# Font settings for the site title and site subtitle
+# 左上角网站名字 主页居中网站名字
 blog_title_font:
-  font_link:
-  font-family:
+  font_link: https://fonts.googleapis.com/css?family=Titillium+Web&display=swap
+  font-family: Titillium Web, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif
 
 # The setting of divider icon (水平分隔線圖標設置)
 hr_icon:
@@ -768,7 +780,7 @@ hr_icon:
 
 # the subtitle on homepage (主頁subtitle)
 subtitle:
-  enable: false
+  enable: true
   # Typewriter Effect (打字效果)
   effect: true
   # Customize typed.js (配置typed.js)
@@ -780,19 +792,22 @@ subtitle:
   # source: 2  調用一句網（簡體） https://yijuzhan.com/
   # source: 3  調用今日詩詞（簡體） https://www.jinrishici.com/
   # subtitle 會先顯示 source , 再顯示 sub 的內容
-  source: false
+  source: 3
   # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
   sub:
+    # - 活在当下
+    # - Never give up
 
 # Loading Animation (加載動畫)
 preloader:
-  enable: false
+  enable: true
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
-  source: 1
+  source: 2
   # pace theme (see https://codebyzach.github.io/pace/)
-  pace_css_url:
+  ## pace_css_url: https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css
+  pace_css_url: css/corner-indicator.css
 
 # wordcount (字數統計)
 # see https://butterfly.js.org/posts/ceeb73f/#字數統計
@@ -827,13 +842,13 @@ series:
 # abcjs (樂譜渲染)
 # See https://github.com/paulrosen/abcjs
 abcjs:
-  enable: false
+  enable: true
   per_page: true
 
 # mermaid
 # see https://github.com/mermaid-js/mermaid
 mermaid:
-  enable: false
+  enable: true
   # built-in themes: default/forest/dark/neutral
   theme:
     light: default
@@ -887,7 +902,7 @@ instantpage: false
 # https://github.com/vinta/pangu.js
 # Insert a space between Chinese character and English character (中英文之間添加空格)
 pangu:
-  enable: false
+  enable: true
   field: site # site/post
 
 # Lazyload (圖片懶加載)

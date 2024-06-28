@@ -4,7 +4,7 @@
 
 # Site
 title: Anyisure
-subtitle: '---'
+subtitle: 'Everything will be better'
 description: '安亦殊'
 keywords:
 author: Anyisure
@@ -108,6 +108,14 @@ ignore:
 ## Themes: https://hexo.io/themes/
 # theme: landscape
 theme: butterfly
+
+# 搜索
+## https://github.com/next-theme/hexo-generator-searchdb
+search:
+  path: search.json
+  field: all
+  content: true
+  format: html
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

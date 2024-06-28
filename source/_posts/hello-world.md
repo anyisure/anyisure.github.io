@@ -3,7 +3,7 @@ title: Hello World
 categories: 学习笔记
 tags:
   - node.js
-  - hexo
+  - Hexo
 abbrlink: 4a17b156
 cover:
 ---
