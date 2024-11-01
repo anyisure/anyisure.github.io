@@ -9,11 +9,11 @@ description: '安亦殊'
 keywords:
 author: Anyisure
 language: zh-CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://anyisure.github.io
 # permalink: :year/:month/:day/:title/
 permalink: posts/:abbrlink.html
 permalink_defaults:
@@ -50,7 +50,10 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: false # 生成文章时会同时生成对应的相同名字的文件夹，也就是文章资源文件夹
+# marked:
+#   prependRoot: true
+#   postAsset: true
 relative_link: false
 future: true
 syntax_highlighter: highlight.js
@@ -77,7 +80,12 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  学习笔记: learn_note
+  教程: tutorial
 tag_map:
+  原型: prototype
+  主题: themes
+  教程: tutorial
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
@@ -123,3 +131,15 @@ deploy:
   type: git
   repo: https://github.com/anyisure/anyisure.github.io.git
   branch: hexo-blog
+
+
+# symbols_count_time 阅读时长
+symbols_count_time:
+    symbols: true
+    time: true
+    total_symbols: true
+    total_time: true
+    exclude_codeblock: false
+    awl: 2
+    wpm: 275
+    suffix: "mins."

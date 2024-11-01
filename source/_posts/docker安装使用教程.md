@@ -141,6 +141,7 @@ docker-compose --version
 
 
 ## 配置加速镜像地址
+### 阿里云加速（个人失效，需企业版）
 参考阿里云： https://help.aliyun.com/zh/acr/user-guide/accelerate-the-pulls-of-docker-official-images
 
 > docker版本>1.1.0
@@ -153,6 +154,29 @@ sudo tee /etc/docker/daemon.json <<-'EOF'
 "registry-mirrors": ["https://[系统分配前缀].mirror.aliyuncs.com"]
 }
 EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+### 其他docker镜像加速器
+1)修改配置文件`/etc/docker/daemon.json`，添加加速地址
+- 清华大学 Docker Hub 镜像：https://mirror.tuna.tsinghua.edu.cn/docker/
+- 网易加速地址：http://hub-mirror.c.163.com
+- DaoCloud Docker 镜像加速：https://reg-mirror.com
+
+2)配置多个加速器：
+```json
+{
+   "registry-mirrors": [
+       "https://mirror.tuna.tsinghua.edu.cn/docker/",
+       "http://hub-mirror.c.163.com",
+       "https://reg-mirror.com"
+   ]
+}
+```
+
+3)重载配置信息并重启
+```bash
 sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
