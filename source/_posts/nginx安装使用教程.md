@@ -5,8 +5,12 @@ tags:
   - devops
 abbrlink: 1cb0de64
 date: 2024-09-20 16:35:08
+cover: ../img/nginx.png
 ---
 
+> Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器 ，同时也提供了IMAP/POP3/SMTP服务。用来做**负载均衡**及**反向代理**使用。
+
+官网：https://nginx.org/
 
 ### 配置文件
 - xx.conf
@@ -26,7 +30,7 @@ date: 2024-09-20 16:35:08
        
         location / {
             proxy_pass              http://localhost:7011;
-	        proxy_set_header        Host $host:$server_port;
+            proxy_set_header        Host $host:$server_port;
             proxy_set_header        X-Real-IP $remote_addr;
             proxy_set_header        X-Forwarded-Port $server_port;
             proxy_set_header        X-Forwarded-Proto https;

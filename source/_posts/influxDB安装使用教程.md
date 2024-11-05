@@ -8,15 +8,18 @@ tags:
   - 物联网
 abbrlink: a7160305
 date: 2024-10-12 16:12:39
+cover: ../img/influxDB/influxdb.png
 ---
 
 # influxDB安装使用教程
 ## 介绍
+> InfluxDB是一个开源的、高性能的时序型数据库，并且在时序型数据库DB-Engines Ranking上排名第一。专门用于收集、存储、处理和可视化时间序列数据的平台。 时间序列数据是按时间顺序索引的数据点序列。数据点通常由同一来源的连续测量组成，用于跟踪随时间的变化。
+
+
 官网：https://www.influxdata.com/
 
 教程：https://docs.influxdata.com/influxdb/v2/
 
-> InfluxDB是一个开源的、高性能的时序型数据库，并且在时序型数据库DB-Engines Ranking上排名第一。专门用于收集、存储、处理和可视化时间序列数据的平台。 时间序列数据是按时间顺序索引的数据点序列。数据点通常由同一来源的连续测量组成，用于跟踪随时间的变化。
 
 时间序列数据的示例包括：
 - 工业传感器数据

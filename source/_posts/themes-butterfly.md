@@ -4,9 +4,7 @@ tags:
   - Hexo
   - 教程
   - 主题
-categories:
-  - 教程
-  - Hexo
+categories: 教程
 keywords: 'Hexo,重新部署,恢复'
 description: hexo主题butterfly
 cover: 'https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png'

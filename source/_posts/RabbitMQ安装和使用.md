@@ -5,13 +5,14 @@ tags:
   - 消息中间件
 abbrlink: 5a5d9a52
 date: 2024-10-16 16:42:22
+cover: ../img/rabbitMQ/rabbitmq3.png
 ---
 
 ## 介绍
 
-官网：https://www.rabbitmq.com
-
 > RabbitMQ是实现了高级消息队列协议（AMQP）的开源消息代理软件（亦称面向消息的中间件）。RabbitMQ是一套开源（MPL）的消息队列服务软件，是由 LShift 提供的一个 Advanced Message Queuing Protocol (AMQP) 的开源实现，由以高性能、健壮以及可伸缩性出名的 Erlang 写成。
+
+官网：https://www.rabbitmq.com
 
 ### 1.1、 消息队列概述
 消息队列中间件是分布式系统中重要的组件，主要解决应用耦合、异步消息、流量削锋等问题。实现高性能、高可用、可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。

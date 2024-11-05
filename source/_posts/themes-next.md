@@ -4,9 +4,7 @@ tags:
   - Hexo
   - 教程
   - 主题
-categories:
-  - 教程
-  - Hexo
+categories: 教程
 abbrlink: f2549d20
 date: 2024-06-25 17:30:32
 top_img:

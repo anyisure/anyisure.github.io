@@ -5,6 +5,7 @@ tags:
   - devops
 abbrlink: 37bbee8b
 date: 2024-09-20 15:42:24
+cover: ../img/docker/docker.png
 ---
 
 [docker官方容器仓库](https://hub.docker.com/)

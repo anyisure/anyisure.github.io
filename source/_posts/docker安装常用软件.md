@@ -5,6 +5,7 @@ tags:
   - devops
 abbrlink: 3db8b873
 date: 2024-09-20 15:54:37
+cover: ../img/docker/docker.png
 ---
 
 
