@@ -1,0 +1,863 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>influxDB安装使用教程 | Anyisure</title><meta name="author" content="Anyisure"><meta name="copyright" content="Anyisure"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="influxDB安装使用教程介绍 InfluxDB是一个开源的、高性能的时序型数据库，并且在时序型数据库DB-Engines Ranking上排名第一。专门用于收集、存储、处理和可视化时间序列数据的平台。 时间序列数据是按时间顺序索引的数据点序列。数据点通常由同一来源的连续测量组成，用于跟踪随时间的变化。  官网：https:&#x2F;&#x2F;www.influxdata.com&#x2F; 教程：https:&#x2F;&#x2F;doc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="influxDB安装使用教程">
+<meta property="og:url" content="https://anyisure.github.io/posts/a7160305.html">
+<meta property="og:site_name" content="Anyisure">
+<meta property="og:description" content="influxDB安装使用教程介绍 InfluxDB是一个开源的、高性能的时序型数据库，并且在时序型数据库DB-Engines Ranking上排名第一。专门用于收集、存储、处理和可视化时间序列数据的平台。 时间序列数据是按时间顺序索引的数据点序列。数据点通常由同一来源的连续测量组成，用于跟踪随时间的变化。  官网：https:&#x2F;&#x2F;www.influxdata.com&#x2F; 教程：https:&#x2F;&#x2F;doc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://anyisure.github.io/img/influxDB/influxdb.png">
+<meta property="article:published_time" content="2024-10-12T08:12:39.000Z">
+<meta property="article:modified_time" content="2024-11-04T08:07:40.522Z">
+<meta property="article:author" content="Anyisure">
+<meta property="article:tag" content="物联网">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="时序数据库">
+<meta property="article:tag" content="influxDB">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://anyisure.github.io/img/influxDB/influxdb.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://anyisure.github.io/posts/a7160305.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: Anyisure","link":"链接: ","source":"来源: Anyisure","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'influxDB安装使用教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-11-04 16:07:40'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/corner-indicator.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/../img/influxDB/influxdb.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Anyisure"><span class="site-name">Anyisure</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">influxDB安装使用教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-12T08:12:39.000Z" title="发表于 2024-10-12 16:12:39">2024-10-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-11-04T08:07:40.522Z" title="更新于 2024-11-04 16:07:40">2024-11-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="influxDB安装使用教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/a7160305.html#post-comment"><span class="waline-comment-count" data-path="/posts/a7160305.html"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="influxDB安装使用教程"><a href="#influxDB安装使用教程" class="headerlink" title="influxDB安装使用教程"></a>influxDB安装使用教程</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><blockquote>
+<p>InfluxDB是一个开源的、高性能的时序型数据库，并且在时序型数据库DB-Engines Ranking上排名第一。专门用于收集、存储、处理和可视化时间序列数据的平台。 时间序列数据是按时间顺序索引的数据点序列。数据点通常由同一来源的连续测量组成，用于跟踪随时间的变化。</p>
+</blockquote>
+<p>官网：<a target="_blank" rel="noopener" href="https://www.influxdata.com/">https://www.influxdata.com/</a></p>
+<p>教程：<a target="_blank" rel="noopener" href="https://docs.influxdata.com/influxdb/v2/">https://docs.influxdata.com/influxdb/v2/</a></p>
+<p>时间序列数据的示例包括：</p>
+<ul>
+<li>工业传感器数据</li>
+<li>服务器性能指标</li>
+<li>每分钟心跳数</li>
+<li>大脑的电活动</li>
+<li>降雨量测量</li>
+<li>股票价格</li>
+</ul>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><ol>
+<li>监控和运维：InfluxDB 适用于实时监控和运维数据的存储和查询。它可以用于收集和存储服务器性能指标、网络流量、应用程序性能数据等，便于管理员和开发人员实时监控系统状态、检测异常和进行故障排查。</li>
+<li>物联网（IoT）和传感器数据：InfluxDB 的高写入性能和优化的存储结构使其成为物联网和传感器数据的理想选择。它可以轻松处理大量传感器产生的数据，并提供快速的查询功能，用于实时数据分析和实时反馈。</li>
+<li>实时数据分析：时序数据库适用于需要对大量实时数据进行分析和处理的场景。InfluxDB 支持数据的连续写入和高效查询，使其成为实时数据分析的有力工具，例如时序数据的图表展示、异常检测、实时报警等。自动化报警与响应系统，通过Kapacitor处理复杂的触发条件。</li>
+<li>日志数据：InfluxDB 也可以用于存储和查询日志数据。它支持日志数据的时序化存储，使日志数据按照时间顺序进行组织，方便查询和分析，特别适合在分布式系统和微服务架构中处理大量的日志数据。</li>
+<li>能源监测：时序数据库可以用于能源监测和管理，例如电力、水、气等能源的数据采集和分析。InfluxDB 可以帮助监测能源的使用情况、趋势和效率，以优化资源利用和降低能源消耗。</li>
+<li>金融数据：在金融领域，时序数据库可以用于存储和分析金融市场的交易数据、股票价格、货币汇率等时序性数据，为金融决策和交易提供支持。</li>
+<li>工业自动化：InfluxDB 适用于工业自动化系统中的数据采集和监测，例如工厂生产线的监控数据、设备运行状态、温度和湿度数据等。</li>
+</ol>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>InfluxDB 数据模型将时间序列数据组织到存储桶和测量中。一个桶可以包含<code>多个测量值</code>。测量包含多个<code>标签</code>和<code>字段</code>。</p>
+<ul>
+<li>bucket（存储桶）：存储时间序列数据的指定位置。一个桶可以包含多个测量值。也就是类似关系型数据库中的库</li>
+<li>measurement（度量）：时间序列数据的逻辑分组。给定测量中的所有点都应具有相同的标签。一个测量包含多个标签和字段。也就是类似关系型数据库中的表</li>
+<li>point（数据端点）：通过测量、标签键、标签值、字段键和时间戳来标识的单个数据记录。也就是类似于关系型数据库中的行</li>
+<li>Tags（键值对）：其值不同，但不经常更改。标签用于存储每个点的元数据 <ul>
+<li>例如，用于识别数据源（如主机、位置、站点等）的东西。</li>
+</ul>
+</li>
+<li>field（字段）：键值对，其值随时间变化，例如：温度、压力、股票价格等。</li>
+<li>Timestamp（时间戳）：与数据关联的时间戳。当存储在磁盘上并查询时，所有数据都按时间排序。</li>
+</ul>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><p>执行速度：<br><img src="/../img/influxDB/sudu.png" alt="速度"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>官网安装教程地址：<a target="_blank" rel="noopener" href="https://docs.influxdata.com/influxdb/v2/install/">https://docs.influxdata.com/influxdb/v2/install/</a></p>
+<h3 id="通过下载安装包安装"><a href="#通过下载安装包安装" class="headerlink" title="通过下载安装包安装"></a>通过下载安装包安装</h3><p>在<a target="_blank" rel="noopener" href="https://docs.influxdata.com/influxdb/v2/install/">官网安装教程地址</a>根据不同的系统选择对应的类型进行下载安装。</p>
+<h4 id="CentOS系统"><a href="#CentOS系统" class="headerlink" title="CentOS系统"></a>CentOS系统</h4><ul>
+<li><p>安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Add the InfluxData key to verify downloads</span></span><br><span class="line">curl --silent --location -O \</span><br><span class="line">https://repos.influxdata.com/influxdata-archive.key \</span><br><span class="line">&amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;943666881a1b8d9b849b74caebf02d3465d6beb716510d86a39f6c8e8dac7515  influxdata-archive.key&quot;</span> \</span><br><span class="line">| <span class="built_in">sha256sum</span> --check - &amp;&amp; <span class="built_in">cat</span> influxdata-archive.key \</span><br><span class="line">| gpg --dearmor \</span><br><span class="line">| <span class="built_in">tee</span> /etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata &gt; /dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add the InfluxData repository to the repository list.</span></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt;<span class="string">EOF | tee /etc/yum.repos.d/influxdata.repo</span></span><br><span class="line"><span class="string">[influxdata]</span></span><br><span class="line"><span class="string">name = InfluxData Repository - Stable</span></span><br><span class="line"><span class="string">baseurl = https://repos.influxdata.com/stable/\$basearch/main</span></span><br><span class="line"><span class="string">enabled = 1</span></span><br><span class="line"><span class="string">gpgcheck = 1</span></span><br><span class="line"><span class="string">gpgkey = file:///etc/pki/rpm-gpg/RPM-GPG-KEY-influxdata</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Install influxdb</span></span><br><span class="line">sudo yum install influxdb2</span><br></pre></td></tr></table></figure></li>
+<li><p>启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service influxdb start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查询状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo service influxdb status</span><br><span class="line"><span class="comment">#---------------------------正常的状态--------------------</span></span><br><span class="line">● influxdb.service - InfluxDB is an open-source, distributed, time series database</span><br><span class="line">   Loaded: loaded (/lib/systemd/system/influxdb.service; enabled; vendor preset: <span class="built_in">enable</span>&gt;</span><br><span class="line">   Active: active (running)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Windows系统"><a href="#Windows系统" class="headerlink" title="Windows系统"></a>Windows系统</h4><blockquote>
+<p>系统要求：</p>
+<ul>
+<li>Windows 10</li>
+<li>64-bit AMD architecture</li>
+<li>Powershell or Windows Subsystem for Linux (WSL)</li>
+</ul>
+</blockquote>
+<ul>
+<li>下载安装包，并解压</li>
+<li>在文件目录下启动： <code>./influxd</code></li>
+</ul>
+<h3 id="通过docker安装"><a href="#通过docker安装" class="headerlink" title="通过docker安装"></a>通过docker安装</h3><h4 id="直接用命令"><a href="#直接用命令" class="headerlink" title="直接用命令"></a>直接用命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run \</span><br><span class="line"> --name influxdb2 \</span><br><span class="line"> --publish 8086:8086 \</span><br><span class="line"> --mount <span class="built_in">type</span>=volume,<span class="built_in">source</span>=influxdb2-data,target=/var/lib/influxdb2 \</span><br><span class="line"> --mount <span class="built_in">type</span>=volume,<span class="built_in">source</span>=influxdb2-config,target=/etc/influxdb2 \</span><br><span class="line"> --<span class="built_in">env</span> DOCKER_INFLUXDB_INIT_MODE=setup \</span><br><span class="line"> --<span class="built_in">env</span> DOCKER_INFLUXDB_INIT_USERNAME=ADMIN_USERNAME \</span><br><span class="line"> --<span class="built_in">env</span> DOCKER_INFLUXDB_INIT_PASSWORD=ADMIN_PASSWORD \</span><br><span class="line"> --<span class="built_in">env</span> DOCKER_INFLUXDB_INIT_ORG=ORG_NAME \</span><br><span class="line"> --<span class="built_in">env</span> DOCKER_INFLUXDB_INIT_BUCKET=BUCKET_NAME \</span><br><span class="line"> influxdb:2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="通过docker-compose-yml"><a href="#通过docker-compose-yml" class="headerlink" title="通过docker-compose.yml"></a>通过docker-compose.yml</h4><p>docker-compose.yml</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&#x27;3&#x27;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment">#influxdb服务</span></span><br><span class="line">  <span class="attr">influxdb:</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">influxdb2.7</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">influxdb:2.7</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&#x27;8086:8086&#x27;</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/root/influxdb/data:/var/lib/influxdb2</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/root/influxdb/config/influxdb.conf:/etc/influxdb2/influxdb.conf</span></span><br><span class="line">    <span class="attr">environment:</span></span><br><span class="line">      <span class="attr">TZ:</span> <span class="string">&quot;Asia/Shanghai&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p><a target="_blank" rel="noopener" href="http://ip:8086/">http://ip:8086</a></p>
+<p>用户名：admin<br>密码：自定义</p>
+<blockquote>
+<p>第一次登陆需将API Token 保存好！！！</p>
+</blockquote>
+<h3 id="通过nodejs读取数据"><a href="#通过nodejs读取数据" class="headerlink" title="通过nodejs读取数据"></a>通过nodejs读取数据</h3><h4 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install --save @influxdata/influxdb-client</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line"><span class="built_in">export</span> INFLUXDB_TOKEN=第一次登陆时生成的API_TOKEN</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化客户端，操作数据库"><a href="#初始化客户端，操作数据库" class="headerlink" title="初始化客户端，操作数据库"></a>初始化客户端，操作数据库</h4><ul>
+<li>打开NodeJs命令窗口：<code>node</code></li>
+<li>代码，初始化客户端<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">repl.<span class="property">repl</span>.<span class="property">ignoreUndefined</span>=<span class="literal">true</span></span><br><span class="line"><span class="keyword">const</span> &#123;<span class="title class_">InfluxDB</span>, <span class="title class_">Point</span>&#125; = <span class="built_in">require</span>(<span class="string">&#x27;@influxdata/influxdb-client&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> token = process.<span class="property">env</span>.<span class="property">INFLUXDB_TOKEN</span></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">&#x27;http://localhost:8086&#x27;</span></span><br><span class="line"><span class="keyword">const</span> client = <span class="keyword">new</span> <span class="title class_">InfluxDB</span>(&#123;url, token&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>写数据<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> org = <span class="string">`组织名称`</span></span><br><span class="line"><span class="keyword">let</span> bucket = <span class="string">`test`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> writeClient = client.<span class="title function_">getWriteApi</span>(org, bucket, <span class="string">&#x27;ns&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> point = <span class="keyword">new</span> <span class="title class_">Point</span>(<span class="string">&#x27;measurement1&#x27;</span>)</span><br><span class="line">    .<span class="title function_">tag</span>(<span class="string">&#x27;tagname1&#x27;</span>, <span class="string">&#x27;tagvalue1&#x27;</span>)</span><br><span class="line">    .<span class="title function_">intField</span>(<span class="string">&#x27;field1&#x27;</span>, i)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    writeClient.<span class="title function_">writePoint</span>(point)</span><br><span class="line">  &#125;, i * <span class="number">1000</span>) <span class="comment">// separate points by 1 second</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">void</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    writeClient.<span class="title function_">flush</span>()</span><br><span class="line">  &#125;, <span class="number">5000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>查数据<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> queryClient = client.<span class="title function_">getQueryApi</span>(org)</span><br><span class="line"># 查询最近<span class="number">10</span>分钟的数据，过滤，求平均数</span><br><span class="line"><span class="keyword">let</span> fluxQuery = <span class="string">`from(bucket: &quot;test&quot;)</span></span><br><span class="line"><span class="string">|&gt; range(start: -10m)</span></span><br><span class="line"><span class="string">|&gt; filter(fn: (r) =&gt; r._measurement == &quot;measurement1&quot;)</span></span><br><span class="line"><span class="string">|&gt; mean()`</span></span><br><span class="line"></span><br><span class="line">queryClient.<span class="title function_">queryRows</span>(fluxQuery, &#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">row, tableMeta</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> tableObject = tableMeta.<span class="title function_">toObject</span>(row)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(tableObject)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">error</span>: <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;\nError&#x27;</span>, error)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">complete</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;\nSuccess&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="通过python操作influxdb"><a href="#通过python操作influxdb" class="headerlink" title="通过python操作influxdb"></a>通过python操作influxdb</h3><h4 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install influxdb-client</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置环境变量-1"><a href="#设置环境变量-1" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line"><span class="built_in">export</span> INFLUXDB_TOKEN=第一次登陆时生成的API_TOKEN</span><br></pre></td></tr></table></figure>
+
+<h4 id="初始化客户端，操作数据库-1"><a href="#初始化客户端，操作数据库-1" class="headerlink" title="初始化客户端，操作数据库"></a>初始化客户端，操作数据库</h4><p>打开Python命令行窗口：<code>python3</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> influxdb_client, os, time</span><br><span class="line"><span class="keyword">from</span> influxdb_client <span class="keyword">import</span> InfluxDBClient, Point, WritePrecision</span><br><span class="line"><span class="keyword">from</span> influxdb_client.client.write_api <span class="keyword">import</span> SYNCHRONOUS</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化客户端</span></span><br><span class="line">token = os.environ.get(<span class="string">&quot;INFLUXDB_TOKEN&quot;</span>)</span><br><span class="line">org = <span class="string">&quot;组织名称&quot;</span></span><br><span class="line">url = <span class="string">&quot;http://localhost:8086&quot;</span></span><br><span class="line"></span><br><span class="line">client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 写数据</span></span><br><span class="line">bucket=<span class="string">&quot;test&quot;</span></span><br><span class="line"></span><br><span class="line">write_api = client.write_api(write_options=SYNCHRONOUS)</span><br><span class="line">   </span><br><span class="line"><span class="keyword">for</span> value <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">  point = (</span><br><span class="line">    Point(<span class="string">&quot;measurement1&quot;</span>)</span><br><span class="line">    .tag(<span class="string">&quot;tagname1&quot;</span>, <span class="string">&quot;tagvalue1&quot;</span>)</span><br><span class="line">    .field(<span class="string">&quot;field1&quot;</span>, value)</span><br><span class="line">  )</span><br><span class="line">  write_api.write(bucket=bucket, org=org, record=point)</span><br><span class="line">  time.sleep(<span class="number">1</span>) <span class="comment"># separate points by 1 second</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询数据</span></span><br><span class="line">query_api = client.query_api()</span><br><span class="line"></span><br><span class="line">query = <span class="string">&quot;&quot;&quot;from(bucket: &quot;test&quot;)</span></span><br><span class="line"><span class="string"> |&gt; range(start: -10m)</span></span><br><span class="line"><span class="string"> |&gt; filter(fn: (r) =&gt; r._measurement == &quot;measurement1&quot;)&quot;&quot;&quot;</span></span><br><span class="line">tables = query_api.query(query, org=org)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> table <span class="keyword">in</span> tables:</span><br><span class="line">  <span class="keyword">for</span> record <span class="keyword">in</span> table.records:</span><br><span class="line">    <span class="built_in">print</span>(record)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/influxdb/v2/">InfluxDB官方文档</a></p>
+<p><del><a target="_blank" rel="noopener" href="https://docs.influxdata.com/influxdb/v2/reference/key-concepts/">InfluxDB关键概念</a>：了解编写时间序列数据的重要概念</del></p>
+<p><a target="_blank" rel="noopener" href="https://university.influxdata.com/">InfluxDB 大学</a>:免费实践课程将教授您技术技能和最佳实践去使用influxDB充分利用实时数据。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/influxdata/iot-api-python">Python简单应用示例</a>: 展示一个用Python写的简单IoT简单应用App。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/influxdata/iot-api-js">NodeJs简单应用示例</a>: Node.js写的简单IoT简单应用App。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/InfluxCommunity/sample-flask/blob/main/app.py">代码样板片段</a>:使用代码片段开始写入和查询数据。</p>
+<h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 写数据</span></span><br><span class="line">.\influx write --bucket iot-test --url https://influx-testdata.s3.amazonaws.com/air-sensor-data-annotated.csv</span><br></pre></td></tr></table></figure>
+
+<h2 id="Telegraf：InfluxDB的数据采集代理"><a href="#Telegraf：InfluxDB的数据采集代理" class="headerlink" title="Telegraf：InfluxDB的数据采集代理"></a>Telegraf：InfluxDB的数据采集代理</h2><blockquote>
+<p>Telegraf是一个基于插件的开源指标采集工具。本身是为InfluxDB（一款时序数据库）量身打造的数据收集器，但是它过于优秀，能够将抓取的数据写到很多地方，尤其在时序数据库领域，很多时序数据库都能够与它配合使用。通常，它每隔一段时间抓取一批指标数据（比如机器的CPU使用情况，磁盘的IO，网络情况，MySQL服务端的的会话数等等）并将他们发送到时序数据库、消息队列中或者自定义导出到某个地方。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/telegraf/v1/">telegraf教程</a></p>
+<h3 id="安装telegraf"><a href="#安装telegraf" class="headerlink" title="安装telegraf"></a>安装telegraf</h3><p><a target="_blank" rel="noopener" href="https://www.influxdata.com/downloads/">安装包地址</a> </p>
+<div class="tabs" id="telegraf-install"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="telegraf-install-1">Centos通过命令行安装</button><button type="button" class="tab " data-href="telegraf-install-2">windows通过下载安装包安装</button></ul><div class="tab-contents"><div class="tab-item-content active" id="telegraf-install-1"><p>通过命令行安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装</span></span><br><span class="line">sudo yum install telegraf</span><br><span class="line"><span class="comment"># 配置文件：`/etc/telegraf/telegraf.conf`</span></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line"><span class="built_in">cd</span> /etc/telegraf/</span><br><span class="line">./telegraf --config telegraf.conf</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="telegraf-install-2"><p>通过下载<a target="_blank" rel="noopener" href="https://www.influxdata.com/downloads/">安装包</a> 安装</p>
+<ul>
+<li>下载地址：<a target="_blank" rel="noopener" href="https://dl.influxdata.com/telegraf/releases/telegraf-1.32.1_windows_amd64.zip">https://dl.influxdata.com/telegraf/releases/telegraf-1.32.1_windows_amd64.zip</a></li>
+<li>下载后解压，修改<code>telegraf.conf</code>文件</li>
+<li>启动命令：<code>./telegraf --config telegraf.conf</code></li>
+</ul></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+
+<h3 id="生成配置文件（可跳过）"><a href="#生成配置文件（可跳过）" class="headerlink" title="生成配置文件（可跳过）"></a>生成配置文件（可跳过）</h3><h4 id="默认的输入和输出插件"><a href="#默认的输入和输出插件" class="headerlink" title="默认的输入和输出插件"></a>默认的输入和输出插件</h4><div class="tabs" id="telegraf"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="telegraf-1">linux</button><button type="button" class="tab " data-href="telegraf-2">windows</button></ul><div class="tab-contents"><div class="tab-item-content active" id="telegraf-1"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># centos</span></span><br><span class="line">telegraf config &gt; telegraf.conf</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="telegraf-2"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># windows</span></span><br><span class="line">.\telegraf.exe config &gt; telegraf.conf</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+<h4 id="特定的输入和输出插件"><a href="#特定的输入和输出插件" class="headerlink" title="特定的输入和输出插件"></a>特定的输入和输出插件</h4><blockquote>
+<p>通过 <code>--input-filter</code> 和 <code>--output-filter</code> 参数使用特定的输入输出插件</p>
+</blockquote>
+<div class="tabs" id="telegraf"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="telegraf-1">linux</button><button type="button" class="tab " data-href="telegraf-2">windows</button></ul><div class="tab-contents"><div class="tab-item-content active" id="telegraf-1"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># centos</span></span><br><span class="line">telegraf \</span><br><span class="line">--input-filter cpu:http \</span><br><span class="line">--output-filter influxdb_v2:file \</span><br><span class="line">config &gt; telegraf_cpu.conf</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="telegraf-2"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># windows</span></span><br><span class="line">.\telegraf.exe `</span><br><span class="line">--input-filter cpu:http `</span><br><span class="line">--output-filter influxdb_v2:file `</span><br><span class="line">config &gt; telegraf.conf</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+
+
+<h3 id="自定义配置插件"><a href="#自定义配置插件" class="headerlink" title="自定义配置插件"></a>自定义配置插件</h3><blockquote>
+<p>telegraf内部包含四种插件：输出插件、处理插件、聚合插件、输出插件</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.influxdata.com/telegraf/v1/plugins/">telegraf插件列表</a></p>
+<p><img src="/../img/influxDB/plugin.png" alt="插件执行顺序"></p>
+<h4 id="Agent配置"><a href="#Agent配置" class="headerlink" title="Agent配置"></a>Agent配置</h4><table>
+<thead>
+<tr>
+<th>配置名</th>
+<th>直译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>interval</td>
+<td>间隔</td>
+<td>所有的input组件采集数据的间隔时间</td>
+</tr>
+<tr>
+<td>round_interval</td>
+<td>间隔取整</td>
+<td>将采集的间隔时间取整。比如，如果interval设置为10s，但我们在1分02秒启动了telegraf服务，那么采集的时间会取整到1分10秒，1分20秒，1分30秒</td>
+</tr>
+<tr>
+<td>metric_batch_size</td>
+<td>指标</td>
+<td>批大小	telegraf一批次从output组件向外发送数据的大小，网络不稳定时可以减小此参数。</td>
+</tr>
+<tr>
+<td>metric_buffer_limit</td>
+<td>指标</td>
+<td>缓冲区	telegraf会为每个output插件创建一个缓冲区，来缓存指标数据，并在output成功将数据发送后，将成功发送的数据从缓冲区删除。所以，metriac_buffer_limit参数应该至少是metric_batch_size参数的两倍</td>
+</tr>
+<tr>
+<td>collection_jetter</td>
+<td>采集抖动</td>
+<td>这个参数会在采集的时间点上加一个随机的抖动，这样可以避免很多插件同时查询一些消耗资源的指标，从而对被观测的系统产生不可忽视的影响。</td>
+</tr>
+<tr>
+<td>flush_interval</td>
+<td>刷新间隔</td>
+<td>所有output的输出间隔，这个参数不应该设的比interval（所有input组件的采集间隔）小。最大的实际发送间隔将会是</td>
+</tr>
+<tr>
+<td>flush_jitter</td>
+<td>刷新抖动</td>
+<td>对output的输出时间加上一个随机的抖动，这主要是为了避免大量的Telegraf实例在同样的时间同时执行写入操作，出现较大的写入峰值。比如，flush_jitter设为5s，flush_interval设为10s意味着会在10~15秒的时候进行一次输出。</td>
+</tr>
+<tr>
+<td>precision</td>
+<td>精度</td>
+<td>精度配置确定从输入插件接收的点中保留多少时间戳精度。所有传入的时间戳都被阶段为给定的精度。然后Telegraf用零填充截断的时间戳以创建纳秒时间戳，输出插件将以纳秒为单位发出时间戳。有效的精度为ns，us，ms和s。例如：如果精度设置为ms，则纳秒时间戳1480000000123456789将被截断为1480000000123毫秒精度，然后用0填充以生成新的，不太精确的纳秒时间戳1480000000123000000。输出插件不会进一步更改时间戳。如果是服务型的输出插件会忽略这个设置。</td>
+</tr>
+<tr>
+<td>logfile</td>
+<td>日志文件</td>
+<td>自定义的日志名称，</td>
+</tr>
+<tr>
+<td>debug</td>
+<td>调试</td>
+<td>使用debug模式运行Telegraf</td>
+</tr>
+<tr>
+<td>quiet</td>
+<td>安静</td>
+<td>安静地运行Telegraf，只会提示错误信息</td>
+</tr>
+<tr>
+<td>logtarget</td>
+<td>日志目标</td>
+<td>该配置用来空值日志的目标。它可以是”file”，“stderr”之一，如果是在Windows系统上，它还可以设为”eventlog”。设置为”file”时，输入文件由 logfile 配置项决定。</td>
+</tr>
+<tr>
+<td>logfile</td>
+<td>日志文件</td>
+<td>指定logtarget指定为”file”时的日志文件名。如果设置为空，那么日志会输出到stderr上。</td>
+</tr>
+<tr>
+<td>logfile_rotation_interval</td>
+<td>日志轮转间隔</td>
+<td>日志轮转间隔，多长时间开启一个新的日志文件，如果设置为0，那么就不按时间进行轮转。</td>
+</tr>
+<tr>
+<td>logfile_rotation_max_size</td>
+<td>日志轮转大小</td>
+<td>当正在使用的日志文件的大小超过该值时，开启一个新的日志文件。当设置为0，表示不按照日志文件的大小进行日志轮转。</td>
+</tr>
+<tr>
+<td>logfile_rotation_max_archives</td>
+<td>最大轮转存档数</td>
+<td>最大的日志归档数量，每一次日志轮转发生时，都会产生一个新的正在使用的日志文件，和一个归档（旧的不再使用的日志文件）</td>
+</tr>
+<tr>
+<td>log_with_timezone</td>
+<td>日志时区</td>
+<td>设置日志记录要使用的时区，或者设为”local”即为本地时间。</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>主机名</td>
+<td>覆盖默认的主机名，如果不设该值，那么os.Hostname( )的返回值。（os.Hostname）是Go语言标准库中的方法，可以获取当前机器的名称。</td>
+</tr>
+<tr>
+<td>omit_hostname</td>
+<td>忽略主机名</td>
+<td>telegraf输出的指标数据中，有一个默认的</td>
+</tr>
+</tbody></table>
+<h4 id="input输入插件通用配置"><a href="#input输入插件通用配置" class="headerlink" title="input输入插件通用配置"></a>input输入插件通用配置</h4><p><a target="_blank" rel="noopener" href="https://github.com/influxdata/telegraf/blob/master/docs/DATA_FORMATS_INPUT.md">数据格式化输入</a></p>
+<table>
+<thead>
+<tr>
+<th>配置名</th>
+<th>直译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alias</td>
+<td>别名</td>
+<td>给一个input插件实例进行命名。</td>
+</tr>
+<tr>
+<td>interval</td>
+<td>间隔</td>
+<td>单个Input组件收集指标的间隔时间，插件中的interval配置比全局的interval配置的优先级要高。</td>
+</tr>
+<tr>
+<td>precision</td>
+<td>精度</td>
+<td>单个Input组件的时间精度，覆盖</td>
+</tr>
+<tr>
+<td>collection_jitter</td>
+<td>采集抖动</td>
+<td>单个Input组件的采集抖动</td>
+</tr>
+<tr>
+<td>name_override</td>
+<td>重命名</td>
+<td>覆盖原来的测量指标名称，默认值为input组件的名称</td>
+</tr>
+<tr>
+<td>name_prefix</td>
+<td>名称前缀</td>
+<td>指定要附加到度量值名称的前缀</td>
+</tr>
+<tr>
+<td>name_suffix</td>
+<td>名称后缀</td>
+<td>指定要附加到度量值名称的后缀</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>标签集</td>
+<td>给当前input数据添加新的标签集。</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[[inputs.mqtt_consumer]]</span><br><span class="line">  servers = [<span class="string">&quot;tcp://localhost:1883&quot;</span>]</span><br><span class="line">  qos = 0</span><br><span class="line"></span><br><span class="line">  topics = [</span><br><span class="line">    <span class="string">&quot;sensor/#&quot;</span></span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  insecure_skip_verify = <span class="literal">true</span></span><br><span class="line">  client_id = <span class="string">&quot;&quot;</span></span><br><span class="line">  data_format = <span class="string">&quot;json&quot;</span></span><br><span class="line">  <span class="comment"># 默认测量名为mqtt_consumer，这里改成sensor</span></span><br><span class="line">  name_override = <span class="string">&quot;sensor&quot;</span></span><br><span class="line">  tag_keys = [<span class="string">&quot;deviceID&quot;</span>]</span><br><span class="line">  json_string_fields = [<span class="string">&quot;rotation&quot;</span>,<span class="string">&quot;temperature&quot;</span>,<span class="string">&quot;sound&quot;</span>,<span class="string">&quot;fault&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>发送数据到</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;deviceID&quot;</span><span class="punctuation">:</span><span class="string">&quot;D01&quot;</span><span class="punctuation">,</span><span class="attr">&quot;rotation&quot;</span><span class="punctuation">:</span><span class="number">11</span><span class="punctuation">,</span><span class="attr">&quot;temperature&quot;</span><span class="punctuation">:</span><span class="number">20.1</span><span class="punctuation">,</span><span class="attr">&quot;sound&quot;</span><span class="punctuation">:</span><span class="number">43</span><span class="punctuation">,</span><span class="attr">&quot;fault&quot;</span><span class="punctuation">:</span><span class="number">0</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="output输出插件通用配置"><a href="#output输出插件通用配置" class="headerlink" title="output输出插件通用配置"></a>output输出插件通用配置</h4><table>
+<thead>
+<tr>
+<th>配置名</th>
+<th>直译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alias</td>
+<td>别名</td>
+<td>给一个output插件起一个别名</td>
+</tr>
+<tr>
+<td>flush_interval</td>
+<td>刷新间隔</td>
+<td>单个output插件的输出间隔（覆盖全局配置）</td>
+</tr>
+<tr>
+<td>flush_jitter</td>
+<td>刷新抖动</td>
+<td>单个output插件的输出时间抖动（覆盖全局配置）</td>
+</tr>
+<tr>
+<td>metric_batch_size</td>
+<td>指标批次大小</td>
+<td>一次最多发送多少条数据（会覆盖全局配置）</td>
+</tr>
+<tr>
+<td>metric_buffer_limit</td>
+<td>指标缓冲区上限</td>
+<td>未发送数据的缓冲区（会覆盖全局配置）</td>
+</tr>
+<tr>
+<td>name_override</td>
+<td>重命名</td>
+<td>覆盖原来的指标名称，默认值为output的名称???</td>
+</tr>
+<tr>
+<td>name_prefix</td>
+<td>名称前缀</td>
+<td>指标名称的前缀</td>
+</tr>
+<tr>
+<td>name_suffix</td>
+<td>名称后缀</td>
+<td>指标名称的后缀</td>
+</tr>
+</tbody></table>
+<h4 id="Aggregator-聚合插件通用配置"><a href="#Aggregator-聚合插件通用配置" class="headerlink" title="Aggregator 聚合插件通用配置"></a>Aggregator 聚合插件通用配置</h4><table>
+<thead>
+<tr>
+<th>配置名</th>
+<th>直译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alias</td>
+<td>别名</td>
+<td>给一个Aggregator插件的实例命名</td>
+</tr>
+<tr>
+<td>period</td>
+<td>期间</td>
+<td>聚合器对从now</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>延迟</td>
+<td>聚合时进行一个小的延迟，防止在对时间戳为1000的数据进行聚合时，上游还在正在发送时间戳为1000的数据</td>
+</tr>
+<tr>
+<td>grace</td>
+<td>宽限</td>
+<td>迟到多久的数据可以进入下一个聚合周期。</td>
+</tr>
+<tr>
+<td>drop_original</td>
+<td>删除源</td>
+<td>默认为false，如果设置为true，袁术的指标数据就会从流水线上删除，不会发给下游的output插件</td>
+</tr>
+<tr>
+<td>name_override</td>
+<td>名称覆盖</td>
+<td>给数据的指标名称重新命名</td>
+</tr>
+<tr>
+<td>name_prefix</td>
+<td>名称前缀</td>
+<td>给指标名称加一个前缀</td>
+</tr>
+<tr>
+<td>name_suffix</td>
+<td>名称后缀</td>
+<td>给指标名称加一个后缀</td>
+</tr>
+<tr>
+<td>tags</td>
+<td>标记</td>
+<td>添加额外的标签集</td>
+</tr>
+</tbody></table>
+<h4 id="Processor-处理插件通用配置"><a href="#Processor-处理插件通用配置" class="headerlink" title="Processor 处理插件通用配置"></a>Processor 处理插件通用配置</h4><table>
+<thead>
+<tr>
+<th>配置名</th>
+<th>直译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alias</td>
+<td>别名</td>
+<td>给Processor插件的示例起一个名字</td>
+</tr>
+<tr>
+<td>order</td>
+<td>顺序</td>
+<td>这是处理器的执行顺序，如果没有制定，那么执行器的顺序就是随机的。注意！不是按照配置文件的先后顺序来的，而是随机。</td>
+</tr>
+</tbody></table>
+<h4 id="Metric-filtering-指标过滤器通用配置"><a href="#Metric-filtering-指标过滤器通用配置" class="headerlink" title="Metric filtering 指标过滤器通用配置"></a>Metric filtering 指标过滤器通用配置</h4><p>指标过滤器的配置可以卸载input，output</p>
+<table>
+<thead>
+<tr>
+<th>配置名</th>
+<th>直译</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>namepass</td>
+<td>名称通过</td>
+<td>一个glob模式的字符串数组，仅有measurement名称与这个配置的参数能匹配的指标数据可以进入此插件。</td>
+</tr>
+<tr>
+<td>namedrop</td>
+<td>名称删除</td>
+<td>一个glob模式的字符串数组，能匹配上measurement的数据直接删除。</td>
+</tr>
+<tr>
+<td>fieldpass</td>
+<td>字段通过</td>
+<td>一个glob模式的字符串数组，只有能匹配上的字段才能通过</td>
+</tr>
+<tr>
+<td>fielddrop</td>
+<td>字段删除</td>
+<td>一个glob模式的字符串数组，如果匹配上了就删除这个资源。</td>
+</tr>
+<tr>
+<td>tagpass</td>
+<td>标签通过</td>
+<td>一个glob模式的字符串数组，tag能匹配上的数据才能通过</td>
+</tr>
+<tr>
+<td>tagdrop</td>
+<td>标签删除</td>
+<td>一个glob模式的字符串数组，tag能匹配上的数据会被删除</td>
+</tr>
+<tr>
+<td>taginclude</td>
+<td>标签包含</td>
+<td>一个glob模式的字符串数据，能匹配到其中一个的整条数据才能通过。</td>
+</tr>
+<tr>
+<td>tagexclude</td>
+<td>标签不含</td>
+<td>tageinclude的反函数</td>
+</tr>
+</tbody></table>
+<p>注意！由于YOML的解析方式，过滤器参数必须在插件定义的末尾来进行定义，负责后续的插件配置项将被截石位 tagpass或者tagdrop的一部分。</p>
+<h3 id="测试从mqtt获取数据到influxDB"><a href="#测试从mqtt获取数据到influxDB" class="headerlink" title="测试从mqtt获取数据到influxDB"></a>测试从mqtt获取数据到influxDB</h3><ul>
+<li><p>创建配置文件<code>telegraf-mqtt.conf</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configuration for telegraf agent</span></span><br><span class="line">[agent]</span><br><span class="line">  <span class="comment">## Default data collection interval for all inputs</span></span><br><span class="line">  interval = <span class="string">&quot;10s&quot;</span></span><br><span class="line">  <span class="comment">## Rounds collection interval to &#x27;interval&#x27;</span></span><br><span class="line">  <span class="comment">## ie, if interval=&quot;10s&quot; then always collect on :00, :10, :20, etc.</span></span><br><span class="line">  round_interval = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">  metric_batch_size = 1000</span><br><span class="line"></span><br><span class="line">  metric_buffer_limit = 10000</span><br><span class="line"></span><br><span class="line">  collection_jitter = <span class="string">&quot;0s&quot;</span></span><br><span class="line"></span><br><span class="line">  flush_interval = <span class="string">&quot;10s&quot;</span></span><br><span class="line">  <span class="comment">## ie, a jitter of 5s and interval 10s means flushes will happen every 10-15s</span></span><br><span class="line">  flush_jitter = <span class="string">&quot;0s&quot;</span></span><br><span class="line">  <span class="comment">## Valid time units are &quot;ns&quot;, &quot;us&quot; (or &quot;µs&quot;), &quot;ms&quot;, &quot;s&quot;.</span></span><br><span class="line">  precision = <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment">## Override default hostname, if empty use os.Hostname()</span></span><br><span class="line">  hostname = <span class="string">&quot;&quot;</span></span><br><span class="line">  <span class="comment">## If set to true, do no set the &quot;host&quot; tag in the telegraf agent.</span></span><br><span class="line">  omit_hostname = <span class="literal">false</span></span><br><span class="line">[[outputs.influxdb_v2]]</span><br><span class="line">  <span class="comment">## The URLs of the InfluxDB cluster nodes.</span></span><br><span class="line">  <span class="comment">##</span></span><br><span class="line">  <span class="comment">## Multiple URLs can be specified for a single cluster, only ONE of the</span></span><br><span class="line">  <span class="comment">## urls will be written to each interval.</span></span><br><span class="line">  <span class="comment">##   ex: urls = [&quot;https://us-west-2-1.aws.cloud2.influxdata.com&quot;]</span></span><br><span class="line">  urls = [<span class="string">&quot;http://localhost:8086&quot;</span>]</span><br><span class="line"></span><br><span class="line">  <span class="comment">## Token for authentication.</span></span><br><span class="line">  token = <span class="string">&quot;<span class="variable">$INFLUX_TOKEN</span>&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">## Organization is the name of the organization you wish to write to; must exist.</span></span><br><span class="line">  organization = <span class="string">&quot;组织名称&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">## Destination bucket to write into.</span></span><br><span class="line">  bucket = <span class="string">&quot;iot-test&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Read metrics from MQTT topic(s)</span></span><br><span class="line">[[inputs.mqtt_consumer]]</span><br><span class="line">  <span class="comment">## Broker URLs for the MQTT server or cluster.  To connect to multiple</span></span><br><span class="line">  <span class="comment">## clusters or standalone servers, use a separate plugin instance.</span></span><br><span class="line">  <span class="comment">##   example: servers = [&quot;tcp://localhost:1883&quot;]</span></span><br><span class="line">  <span class="comment">##            servers = [&quot;ssl://localhost:1883&quot;]</span></span><br><span class="line">  <span class="comment">##            servers = [&quot;ws://localhost:1883&quot;]</span></span><br><span class="line">  servers = [<span class="string">&quot;tcp://localhost:1883&quot;</span>]</span><br><span class="line"></span><br><span class="line">  <span class="comment">## Topics that will be subscribed to.</span></span><br><span class="line">  topics = [</span><br><span class="line">    <span class="string">&quot;telegraf/host01/cpu&quot;</span>,</span><br><span class="line">    <span class="string">&quot;telegraf/+/mem&quot;</span>,</span><br><span class="line">    <span class="string">&quot;sensors/#&quot;</span>,</span><br><span class="line">  ]</span><br><span class="line"></span><br><span class="line">  <span class="comment">## The message topic will be stored in a tag specified by this value.  If set</span></span><br><span class="line">  <span class="comment">## to the empty string no topic tag will be created.</span></span><br><span class="line">  <span class="comment"># topic_tag = &quot;topic&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">## QoS policy for messages</span></span><br><span class="line">  <span class="comment">##   0 = at most once</span></span><br><span class="line">  <span class="comment">##   1 = at least once</span></span><br><span class="line">  <span class="comment">##   2 = exactly once</span></span><br><span class="line">  qos = 0</span><br><span class="line"></span><br><span class="line">  <span class="comment">## Connection timeout for initial connection in seconds</span></span><br><span class="line">  <span class="comment"># connection_timeout = &quot;30s&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">## If unset, a random client ID will be generated.</span></span><br><span class="line">  <span class="comment"># client_id = &quot;&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">## Username and password to connect MQTT server.</span></span><br><span class="line">  username = <span class="string">&quot;MQTT用户名&quot;</span></span><br><span class="line">  password = <span class="string">&quot;MQTT密码&quot;</span></span><br><span class="line"></span><br><span class="line">  data_format = <span class="string">&quot;influx&quot;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">## Enable extracting tag values from MQTT topics</span></span><br><span class="line">  <span class="comment">## _ denotes an ignored entry in the topic path</span></span><br><span class="line">  <span class="comment"># [[inputs.mqtt_consumer.topic_parsing]]</span></span><br><span class="line">  <span class="comment">#   topic = &quot;&quot;</span></span><br><span class="line">  <span class="comment">#   measurement = &quot;&quot;</span></span><br><span class="line">  <span class="comment">#   tags = &quot;&quot;</span></span><br><span class="line">  <span class="comment">#   fields = &quot;&quot;</span></span><br><span class="line">  <span class="comment">## Value supported is int, float, unit</span></span><br><span class="line">  <span class="comment">#   [[inputs.mqtt_consumer.topic.types]]</span></span><br><span class="line">  <span class="comment">#      key = type</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>启动：</p>
+<div class="tabs" id="telegraf-start"><ul class="nav-tabs"><button type="button" class="tab  active" data-href="telegraf-start-1">linux</button><button type="button" class="tab " data-href="telegraf-start-2">windows</button></ul><div class="tab-contents"><div class="tab-item-content active" id="telegraf-start-1"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置环境变量</span></span><br><span class="line"><span class="built_in">export</span> INFLUXDB_TOKEN=第一次登陆时生成的API_TOKEN</span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">telegraf --config telegraf-mqtt.conf</span><br></pre></td></tr></table></figure></div><div class="tab-item-content" id="telegraf-start-2"><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># powershell设置临时环境变量</span></span><br><span class="line"><span class="variable">$env</span>:INFLUX_TOKEN=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="comment"># 启动</span></span><br><span class="line">./telegraf --config http://localhost:8086/api/v2/telegrafs/0dd26624ad853000</span><br></pre></td></tr></table></figure></div></div><div class="tab-to-top"><button type="button" aria-label="scroll to top"><i class="fas fa-arrow-up"></i></button></div></div>
+</li>
+<li><p>发送数据到mqtt服务器的主题<code>sensors/1</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test2,deviceId=s01,name=测试,host=111 fs=34,available=183,used=157 1729755350000000000</span><br></pre></td></tr></table></figure>
+<ul>
+<li>influx格式： 测量名（表名）,标签1&#x3D;值1,标签2&#x3D;值2…  field1&#x3D;value1,field2&#x3D;value2… 时间戳</li>
+</ul>
+</li>
+<li><p>在influxdb查询是否获取到数据：</p>
+<ul>
+<li>Load Data ——》 BUCKETS ——》 配置文件里的bucket ——》 选择对应的_measurement ——》 点击SUBMIT查询</li>
+<li>左上角可切换图表格式：Graph,Table…</li>
+</ul>
+</li>
+</ul>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><ul>
+<li><p><code>telegraf --help</code> 可以查看telegraf提供的相关命令和参数</p>
+</li>
+<li><p><code>telegraf config</code>: 打印完整的样本配置到标准输出。</p>
+</li>
+<li><p><code>telegraf version</code>: 打印版本信息。</p>
+</li>
+<li><p><code>telegraf --list-plugins</code>:查看可用插件列表</p>
+</li>
+</ul>
+<h4 id="配置相关"><a href="#配置相关" class="headerlink" title="配置相关"></a>配置相关</h4><ul>
+<li><p><code>--config &lt;file&gt;</code>: 指定要加载的配置文件。</p>
+</li>
+<li><p><code>--config-directory</code> <directory>: 指定包含额外 *.conf 文件的目录。</p>
+</li>
+<li><p><code>--plugin-directory</code>: 指定包含 *.so 文件的目录，Telegraf 将递归搜索此目录并加载任何找到的插件。</p>
+</li>
+<li><p><code>--debug</code>: 启用调试日志。</p>
+</li>
+<li><p><code>--input-filter &lt;filter&gt;</code>: 过滤要启用的输入插件，分隔符为冒号。</p>
+</li>
+<li><p><code>--output-filter &lt;filter&gt;</code>: 过滤要启用的输出插件，分隔符为冒号。</p>
+</li>
+<li><p><code>--pidfile &lt;file&gt;</code>: 指定写入进程ID的文件。</p>
+</li>
+<li><p><code>--pprof-addr &lt;address&gt;</code>: 指定监听 pprof 的地址。如果为空，则不激活 pprof。</p>
+</li>
+<li><p><code>--processor-filter &lt;filter&gt;</code>: 过滤要启用的处理器，分隔符为冒号。</p>
+</li>
+<li><p><code>--quiet</code>: 以静默模式运行。</p>
+</li>
+<li><p><code>--section-filter</code>: 过滤要输出的配置部分，有效值包括 ‘agent’, ‘global_tags’, ‘outputs’, ‘processors’, ‘aggregators’ 和 ‘inputs’。</p>
+</li>
+<li><p><code>--sample-config</code>: 打印完整的样本配置。</p>
+</li>
+<li><p><code>--test</code>: 收集指标、打印它们并退出；在测试模式下，不会运行处理器、聚合器和输出。</p>
+</li>
+<li><p><code>--test-wait</code>: 在测试模式下等待多长时间以完成服务输入。</p>
+</li>
+<li><p><code>--usage &lt;plugin&gt;</code>: 打印特定插件的使用信息，例如 ‘telegraf –usage mysql’。</p>
+</li>
+</ul>
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><ul>
+<li><p>生成 Telegraf 配置文件：<code>telegraf config &gt; telegraf.conf</code></p>
+</li>
+<li><p>仅定义 CPU 输入和 InfluxDB 输出插件的配置：<code>telegraf --input-filter cpu --output-filter influxdb config</code></p>
+</li>
+<li><p>单次 Telegraf 收集，输出指标到 <code>stdout：telegraf --config telegraf.conf --test</code></p>
+</li>
+<li><p>按配置文件中定义的所有插件运行 Telegraf：<code>telegraf --config telegraf.conf</code></p>
+</li>
+<li><p>启用 CPU 和内存输入，以及 InfluxDB 输出插件的 Telegraf：<code>telegraf --config telegraf.conf --input-filter cpu:mem --output-filter influxdb</code></p>
+</li>
+<li><p>带有 pprof 的 Telegraf 运行：<code>telegraf --config telegraf.conf --pprof-addr localhost:6060</code></p>
+</li>
+</ul>
+<h3 id="关联rabbitMQ"><a href="#关联rabbitMQ" class="headerlink" title="关联rabbitMQ"></a>关联rabbitMQ</h3><ul>
+<li>rabbitmq安装插件<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查询安装的插件列表</span></span><br><span class="line">rabbitmq-plugins list </span><br><span class="line"><span class="comment"># 安装需要的插件</span></span><br><span class="line">rabbitmq-plugins <span class="built_in">enable</span> rabbitmq_federation_management</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Chronograf：InfluxDB的图形化管理工具"><a href="#Chronograf：InfluxDB的图形化管理工具" class="headerlink" title="Chronograf：InfluxDB的图形化管理工具"></a>Chronograf：InfluxDB的图形化管理工具</h2><blockquote>
+<p>Chronograf是一个基于Web的图形化管理工具，用于管理InfluxDB数据库。它提供了一个直观的界面，用于创建仪表盘、可视化数据和管理数据库。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.influxdata.com/time-series-platform/chronograf/">https://www.influxdata.com/time-series-platform/chronograf/</a></p>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:8888/">http://localhost:8888</a><br>Username: admin<br>Password: admin</p>
+<p>TODO <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_28235889/article/details/141618492">https://blog.csdn.net/weixin_28235889/article/details/141618492</a></p>
+<h2 id="Kapacitor：InfluxDB的流处理和告警引擎"><a href="#Kapacitor：InfluxDB的流处理和告警引擎" class="headerlink" title="Kapacitor：InfluxDB的流处理和告警引擎"></a>Kapacitor：InfluxDB的流处理和告警引擎</h2><blockquote>
+<p>Kapacitor是一个流处理和告警引擎，用于处理InfluxDB中的实时数据。它可以执行数据转换、聚合和告警。</p>
+</blockquote>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:9092/">http://localhost:9092</a><br>Username: admin<br>Password: admin</p>
+<h2 id="Grafana"><a href="#Grafana" class="headerlink" title="Grafana"></a>Grafana</h2><p><a target="_blank" rel="noopener" href="https://grafana.com/">https://grafana.com/</a></p>
+<p>URL: <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a><br>Username: admin<br>Password: admin</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://anyisure.github.io">Anyisure</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://anyisure.github.io/posts/a7160305.html">https://anyisure.github.io/posts/a7160305.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://anyisure.github.io" target="_blank">Anyisure</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%89%A9%E8%81%94%E7%BD%91/">物联网</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a><a class="post-meta__tags" href="/tags/%E6%97%B6%E5%BA%8F%E6%95%B0%E6%8D%AE%E5%BA%93/">时序数据库</a><a class="post-meta__tags" href="/tags/influxDB/">influxDB</a></div><div class="post_share"><div class="social-share" data-image="/../img/influxDB/influxdb.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5a5d9a52.html" title="RabbitMQ安装和使用"><img class="cover" src="/../img/rabbitMQ/rabbitmq3.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">RabbitMQ安装和使用</div></div></a></div><div class="next-post pull-right"><a href="/posts/1cb0de64.html" title="nginx安装使用教程"><img class="cover" src="/../img/nginx.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">nginx安装使用教程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/50cb1163.html" title="OAT升级"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-21</div><div class="title">OAT升级</div></div></a></div><div><a href="/posts/14ea6df7.html" title="数据库"><img class="cover" src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-01</div><div class="title">数据库</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Waline</span><span id="switch-btn"></span><span class="second-comment">Gitalk</span></div></div><div class="comment-wrap"><div><div id="waline-wrap"></div></div><div><div id="gitalk-container"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Anyisure</div><div class="author-info__description">安亦殊</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/anyisure"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/anyisure" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="card-widget"><div class="item-headline"><i></i><span></span></div><div class="item-content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#influxDB%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="toc-text">influxDB安装使用教程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text">介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-text">对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E4%B8%8B%E8%BD%BD%E5%AE%89%E8%A3%85%E5%8C%85%E5%AE%89%E8%A3%85"><span class="toc-text">通过下载安装包安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CentOS%E7%B3%BB%E7%BB%9F"><span class="toc-text">CentOS系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows%E7%B3%BB%E7%BB%9F"><span class="toc-text">Windows系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87docker%E5%AE%89%E8%A3%85"><span class="toc-text">通过docker安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">直接用命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87docker-compose-yml"><span class="toc-text">通过docker-compose.yml</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE"><span class="toc-text">访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87nodejs%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">通过nodejs读取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">设置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">初始化客户端，操作数据库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87python%E6%93%8D%E4%BD%9Cinfluxdb"><span class="toc-text">通过python操作influxdb</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96-1"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F-1"><span class="toc-text">设置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%A2%E6%88%B7%E7%AB%AF%EF%BC%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93-1"><span class="toc-text">初始化客户端，操作数据库</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4"><span class="toc-text">命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Telegraf%EF%BC%9AInfluxDB%E7%9A%84%E6%95%B0%E6%8D%AE%E9%87%87%E9%9B%86%E4%BB%A3%E7%90%86"><span class="toc-text">Telegraf：InfluxDB的数据采集代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85telegraf"><span class="toc-text">安装telegraf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E5%8F%AF%E8%B7%B3%E8%BF%87%EF%BC%89"><span class="toc-text">生成配置文件（可跳过）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E7%9A%84%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA%E6%8F%92%E4%BB%B6"><span class="toc-text">默认的输入和输出插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E7%9A%84%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA%E6%8F%92%E4%BB%B6"><span class="toc-text">特定的输入和输出插件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%8F%92%E4%BB%B6"><span class="toc-text">自定义配置插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Agent%E9%85%8D%E7%BD%AE"><span class="toc-text">Agent配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#input%E8%BE%93%E5%85%A5%E6%8F%92%E4%BB%B6%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">input输入插件通用配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#output%E8%BE%93%E5%87%BA%E6%8F%92%E4%BB%B6%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">output输出插件通用配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Aggregator-%E8%81%9A%E5%90%88%E6%8F%92%E4%BB%B6%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">Aggregator 聚合插件通用配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Processor-%E5%A4%84%E7%90%86%E6%8F%92%E4%BB%B6%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">Processor 处理插件通用配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Metric-filtering-%E6%8C%87%E6%A0%87%E8%BF%87%E6%BB%A4%E5%99%A8%E9%80%9A%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-text">Metric filtering 指标过滤器通用配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%8Emqtt%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E5%88%B0influxDB"><span class="toc-text">测试从mqtt获取数据到influxDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="toc-text">基本命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%9B%B8%E5%85%B3"><span class="toc-text">配置相关</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E8%81%94rabbitMQ"><span class="toc-text">关联rabbitMQ</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chronograf%EF%BC%9AInfluxDB%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8C%96%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7"><span class="toc-text">Chronograf：InfluxDB的图形化管理工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kapacitor%EF%BC%9AInfluxDB%E7%9A%84%E6%B5%81%E5%A4%84%E7%90%86%E5%92%8C%E5%91%8A%E8%AD%A6%E5%BC%95%E6%93%8E"><span class="toc-text">Kapacitor：InfluxDB的流处理和告警引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Grafana"><span class="toc-text">Grafana</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/bc9b3bc.html" title="架构图绘制"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="架构图绘制"/></a><div class="content"><a class="title" href="/posts/bc9b3bc.html" title="架构图绘制">架构图绘制</a><time datetime="2024-11-04T03:27:02.000Z" title="发表于 2024-11-04 11:27:02">2024-11-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/14ea6df7.html" title="数据库"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数据库"/></a><div class="content"><a class="title" href="/posts/14ea6df7.html" title="数据库">数据库</a><time datetime="2024-11-01T08:51:14.000Z" title="发表于 2024-11-01 16:51:14">2024-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/a083c937.html" title="前端常用插件"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="前端常用插件"/></a><div class="content"><a class="title" href="/posts/a083c937.html" title="前端常用插件">前端常用插件</a><time datetime="2024-11-01T07:22:23.000Z" title="发表于 2024-11-01 15:22:23">2024-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/9919a51.html" title="uniapp开发"><img src="/../img/uniapp/uni-app2.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="uniapp开发"/></a><div class="content"><a class="title" href="/posts/9919a51.html" title="uniapp开发">uniapp开发</a><time datetime="2024-11-01T02:30:04.000Z" title="发表于 2024-11-01 10:30:04">2024-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/50cb1163.html" title="OAT升级"><img src="https://jsd.012700.xyz/gh/jerryc127/CDN@latest/cover/default_bg3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="OAT升级"/></a><div class="content"><a class="title" href="/posts/50cb1163.html" title="OAT升级">OAT升级</a><time datetime="2024-10-21T09:20:02.000Z" title="发表于 2024-10-21 17:20:02">2024-10-21</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Anyisure</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://anyisure.github.io/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="/js/tw_cn.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script><script>(() => {
+  const abcjsInit = () => {
+    const abcjsFn = () => {
+      document.querySelectorAll(".abc-music-sheet").forEach(ele => {
+        ABCJS.renderAbc(ele, ele.innerHTML, {responsive: 'resize'})
+      })
+    }
+    
+    typeof ABCJS === 'object' ? abcjsFn()
+      : getScript('https://cdn.jsdelivr.net/npm/abcjs@6.3.0/dist/abcjs-basic-min.min.js').then(abcjsFn)
+  }
+
+  window.pjax ? abcjsInit() : window.addEventListener('load', abcjsInit)
+})()</script><script>(() => {
+  let initFn = window.walineFn || null
+
+  const initWaline = (Fn) => {
+    const waline = Fn(Object.assign({
+      el: '#waline-wrap',
+      serverURL: 'hexo-waline-chi.vercel.app',
+      // 设置 emoji 为微博与哔哩小黄脸
+      emoji: [
+        //- '//img.t.sinajs.cn/t4/appstyle/expression/ext/normal/',
+        '//unpkg.com/@waline/emojis@1.2.0/weibo',
+        '//unpkg.com/@waline/emojis@1.2.0/bmoji',
+        '//unpkg.com/@waline/emojis@1.2.0/alus',
+        '//unpkg.com/@waline/emojis@1.2.0/tieba',
+        //- '//unpkg.com/@waline/emojis@1.2.0/soul-emoji'
+      ],
+      pageview: false,
+      dark: 'html[data-theme="dark"]',
+      path: window.location.pathname,
+      comment: true,
+    }, null))
+
+    const destroyWaline = () => {
+      waline.destroy()
+    }
+
+    btf.addGlobalFn('pjax', destroyWaline, 'destroyWaline')
+  }
+
+  const loadWaline = async () => {
+    if (initFn) initWaline(initFn)
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.css')
+      const { init } = await import('https://cdn.jsdelivr.net/npm/@waline/client@3.1.2/dist/waline.min.js')
+      initFn = init || Waline.init
+      initWaline(initFn)
+      window.walineFn = initFn
+    }
+  }
+
+  if ('Waline' === 'Waline' || !false) {
+    if (false) btf.loadComment(document.getElementById('waline-wrap'),loadWaline)
+    else setTimeout(loadWaline, 0)
+  } else {
+    window.loadOtherComment = loadWaline
+  }
+})()</script><script>(() => {
+  const initGitalk = () => {
+    const gitalk = new Gitalk(Object.assign({
+      clientID: 'Ov23li1vkKjLHpOllA40',
+      clientSecret: 'fcec48cd7ee00af665cb1004cabbede1e060605d',
+      repo: 'anyisure.github.io',
+      owner: 'anyisure',
+      admin: ['anyisure'],
+      id: '6046f752d584a789398d53610e0164e4',
+      updateCountCallback: commentCount
+    },null))
+
+    gitalk.render('gitalk-container')
+  }
+
+  const loadGitalk = async() => {
+    if (typeof Gitalk === 'function') initGitalk()
+    else {
+      await getCSS('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.css')
+      await getScript('https://cdn.jsdelivr.net/npm/gitalk@1.8.0/dist/gitalk.min.js')
+      initGitalk()
+    }
+  }
+  
+  const commentCount = n => {
+    const isCommentCount = document.querySelector('#post-meta .gitalk-comment-count')
+    if (isCommentCount) {
+      isCommentCount.textContent= n
+    }
+  }
+
+  if ('Waline' === 'Gitalk' || !false) {
+    if (false) btf.loadComment(document.getElementById('gitalk-container'), loadGitalk)
+    else loadGitalk()
+  } else {
+    window.loadOtherComment = loadGitalk
+  }
+})()</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
