@@ -1,6 +1,14 @@
+---
+title: Cursor入门教程
+tags:
+  - AI
+  - IDE
+abbrlink: 1fc3fb53
+cover: ../img/cursor/cursor.png
+---
 
 
-## Cursor
+## Cursor 入门教程
 > `cursor`是一个集成了`GPT4`、`Claude 3.5`等先进`LLM`的类`vscode`的编译器，可以理解为在`vscode`中集成了AI辅助编程助手。
 
 官网地址:https://www.cursor.com/
