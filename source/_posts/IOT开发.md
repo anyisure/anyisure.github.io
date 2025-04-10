@@ -3,6 +3,7 @@ title: IOT开发
 tags:
   - IoT
   - 物联网
+abbrlink: 59c25015
 ---
 
 # OPC
@@ -52,3 +53,6 @@ Prosys OPC
 ### Unified Automation UaExpert
 > UaExpert是一个功能丰富的OPC UA客户端，可用于测试和调试OPC UA服务器。它可以连接到OPC UA服务器，读取和修改OPC UA节点的值，查看服务器的状态和性能，并提供了丰富的监控和调试功能。
 
+# 传输
+## 蓝牙
+https://donger.blog.csdn.net/article/details/127116878?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-127116878-blog-142832657.235%5Ev43%5Epc_blog_bottom_relevance_base8&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-127116878-blog-142832657.235%5Ev43%5Epc_blog_bottom_relevance_base8&utm_relevant_index=1
