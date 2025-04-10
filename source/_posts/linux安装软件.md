@@ -2,7 +2,10 @@
 title: linux安装软件`
 abbrlink: bc19088c
 date: 2024-11-25 10:45:36
+categories: 运维
 tags:
+  - devops
+  - linux
 ---
 
 

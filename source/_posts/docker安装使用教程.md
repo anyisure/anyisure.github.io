@@ -159,6 +159,15 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
+### 阿里个人镜像仓库(直接登陆)
+
+> [aliyun的docker镜像](https://cr.console.aliyun.com/cn-hangzhou/instance/dashboard)，创建个人镜像仓库，然后登陆镜像仓库认证后，再拉取需要的docker镜像
+
+终端中输入访问凭证，登录Registry实例
+```bash
+sudo docker login --username=anyisure xxx.cn-hangzhou.personal.cr.aliyuncs.com
+```
+
 ### 其他docker镜像加速器
 1)修改配置文件`/etc/docker/daemon.json`，添加加速地址
 - 清华大学 Docker Hub 镜像：https://mirror.tuna.tsinghua.edu.cn/docker/
@@ -176,10 +185,38 @@ sudo systemctl restart docker
 }
 ```
 
+- 2025年可用的镜像仓库
+```json
+ {
+  "registry-mirrors": [
+    "https://docker.hpcloud.cloud",
+    "https://docker.m.daocloud.io",
+    "https://docker.unsee.tech",
+    "https://docker.1panel.live",
+    "http://mirrors.ustc.edu.cn",
+    "https://docker.chenby.cn",
+    "http://mirror.azure.cn",
+    "https://dockerpull.org",
+    "https://dockerhub.icu",
+    "https://hub.rat.dev",
+    "https://proxy.1panel.live",
+    "https://docker.1panel.top",
+    "https://docker.m.daocloud.io",
+    "https://docker.1ms.run",
+    "https://docker.ketches.cn"
+  ]
+}
+```
+
 3)重载配置信息并重启
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl restart docker
+```
+
+4)测试配置效果
+```bash
+docker info | grep "Registry Mirrors"
 ```
 
 # 二、Docker 命令

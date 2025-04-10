@@ -1,5 +1,6 @@
 ---
 title: docker安装常用软件
+categories: 运维
 tags:
   - docker
   - devops
@@ -365,14 +366,14 @@ mkdir -pv /root/tdengine/taos/dnode/{data,log}
 
 # 创建容器
 docker run -d --privileged=true \
---restart=always -name=tdengine \
+--restart=always --name tdengine \
 -v /root/tdengine/taos/dnode/data:/var/lib/taos \
 -v /root/tdengine/taos/dnode/log:/var/log/taos  \
 -p 6030:6030 -p 6041:6041 -p 6043-6049:6043-6049 -p 6043-6049:6043-6049/udp \
 tdengine/tdengine:3.1.0.0
 
 # 进入容器
-docker exec it tdengine /bin/bash
+docker exec -it tdengine /bin/bash
 
 # 运行 TDengine CLl
 taos
@@ -381,5 +382,9 @@ taos
 alter user root pass'root123';
 
 # 通过密码进入数据库
-taos uroot -proot123
+taos -uroot -proot123
 ```
+注意：
+- TDengine 3.0 服务端仅使用 `6030` TCP 端口。
+- 6041 为 `taosAdapter` 所使用提供 `REST` 服务端口。
+- 6043-6049 为 `taosAdapter` 提供第三方应用接入所使用端口，可根据需要选择是否打开。
