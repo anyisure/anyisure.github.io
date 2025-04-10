@@ -352,3 +352,34 @@ docker-compose up -d
 ```
 
 ### 8.2 通过命令行
+
+
+## 9.安装tdengine数据库
+### 通过命令行安装
+```bash
+# 拉取镜像
+docker pull tdengine/tdengine:3.1.0.0
+
+# 创建本地数据映射目录
+mkdir -pv /root/tdengine/taos/dnode/{data,log}
+
+# 创建容器
+docker run -d --privileged=true \
+--restart=always -name=tdengine \
+-v /root/tdengine/taos/dnode/data:/var/lib/taos \
+-v /root/tdengine/taos/dnode/log:/var/log/taos  \
+-p 6030:6030 -p 6041:6041 -p 6043-6049:6043-6049 -p 6043-6049:6043-6049/udp \
+tdengine/tdengine:3.1.0.0
+
+# 进入容器
+docker exec it tdengine /bin/bash
+
+# 运行 TDengine CLl
+taos
+
+# 修改密码
+alter user root pass'root123';
+
+# 通过密码进入数据库
+taos uroot -proot123
+```

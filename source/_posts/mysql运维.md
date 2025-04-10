@@ -1,10 +1,11 @@
 ---
 title: mysql运维
-date: 2025-03-19 11:19:56
 categories: 数据库
-tags: 
+tags:
   - mysql
   - 数据库
+abbrlink: ad09ad43
+date: 2025-03-19 11:19:56
 ---
 
 ## 常见操作
