@@ -15,9 +15,9 @@ date: 2025-04-10 16:50:03
 - TDengine 的代码，包括集群功能，都在 GNU AGPL v3.0 下开源。
 - 除核心的时序数据库功能外，TDengine 还提供缓存、数据订阅、流式计算等其它功能以降低系统复杂度及研发和运维成本。
 
-- [官网]()
+- [官网](https://www.taosdata.com/)
 - [安装教程](https://docs.taosdata.com/get-started/package/)
-- [github开源版源码]()
+- [github开源版源码](https://github.com/taosdata/TDengine)
 
 
 ### 通过docker安装
