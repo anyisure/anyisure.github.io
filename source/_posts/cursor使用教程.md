@@ -1,5 +1,6 @@
 ---
 title: Cursor入门教程
+categories: AI
 tags:
   - AI
   - IDE
