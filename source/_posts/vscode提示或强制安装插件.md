@@ -136,3 +136,30 @@ exports.activate = activate;
 
 ## 参考链接                     
 https://blog.csdn.net/m0_37890289/article/details/143632743
+
+
+## 常用插件
+```json
+{
+  "recommendations": [
+    "christian-kohler.path-intellisense",
+    "vscode-icons-team.vscode-icons",
+    "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "mrmlnc.vscode-less",
+    "lokalise.i18n-ally", // 国际化
+    "redhat.vscode-yaml",
+    "csstools.postcss",
+    "mikestead.dotenv",
+    "eamodio.gitlens",
+    "antfu.iconify",
+    "antfu.unocss",
+    "Vue.volar", // vue offical
+    "pkief.material-icon-theme", // 文件夹图标
+    "mechatroner.rainbow-csv", // 括号变颜色
+    "ms-ceintl.vscode-language-pack-zh-hans" //汉化
+  ]
+}
+
+```

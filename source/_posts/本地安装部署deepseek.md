@@ -43,12 +43,13 @@ tags:
    1. 打开终端：
       - Windows 按 `Win + R` 输入 `cmd`
       - Mac 直接打开 `Terminal`
-   2. 输入命令：`ollama list` ，如果终端显示 `llama3` 之类的模型名称，说明已经安装成功！并且桌面会出现一个羊驼图标。
+   2. 输入命令：`ollama list` ，如果终端显示模型列表，说明已经安装成功！并且桌面会出现一个羊驼图标。
 
 2. ‌ 下载 DeepSeek 模型 ‌：
 
    - 在[ollama 官网模型](https://ollama.com/search)里寻找`deepseek-r1`,点击进去就可以找到下载安装命令。
    - 运行命令`ollama pull deepseek-r1:7b`下载`7b`版本（`7B` 为常用版本，`1.5B` 适合低配置设备，高性能显卡用户（显存 16GB 以上）可选 `16B` 版本）。‌‌
+   - 或者在打开的 allama 图形界面选择对应的模型后对话，会自动下载相应的模型后回复。
 
 3. ‌ 运行模型 ‌：
 
